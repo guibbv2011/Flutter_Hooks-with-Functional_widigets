@@ -1,6 +1,13 @@
 # test_hooks
 
-A new Flutter project.
+A project with flutter hooks and functional widget,
+including another projects from this approach, 
+with changes and some improvements for app:
+
+The counter reactive it's my project that adresses Bloc with stream and Bloc with RxDart.
+
+The incremetCounter is an project by Reso Coder.
+The DecrementCounter and draggable is project by Tensor Programming.
 
 ## Getting Started
 
