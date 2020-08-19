@@ -29,6 +29,13 @@ class TimerStreamModel {
     duration.add(elapsedTime);
   }
 
+  disposeTimerModel() {
+    seconds.close();
+    minutes.close();
+    hours.close();
+    duration.close();
+  }
+
   start() {
     stop();
     _stopWatch.start();

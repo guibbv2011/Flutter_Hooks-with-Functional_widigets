@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class Count {
   // Bloc pattern with rxdart ---------------
+
   final _counter = BehaviorSubject.seeded(0);
 
   get stream$ => _counter.stream;
@@ -14,6 +15,7 @@ class Count {
   // ----------------------------------------
 
   // Bloc with dart streams -----------------
+
   int menos = 0;
   final _counterBloc = StreamController();
 
@@ -28,9 +30,11 @@ class Count {
   // ---------------------------------------
 
   // Dispose all ---------------------------
-  dispode() {
+
+  dispose() {
     _counter.close();
     _counterBloc.close();
   }
+
   // ---------------------------------------
 }

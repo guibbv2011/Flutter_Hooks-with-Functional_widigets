@@ -3,7 +3,9 @@ import 'package:rxdart/subjects.dart';
 import 'package:test_hooks/draggable/draggable.dart';
 import 'package:test_hooks/timerDecrement/screens/timerDecrement.dart';
 import 'package:test_hooks/timerIncrement/timerStream.dart';
+import 'package:test_hooks/timerIncrement/timerStreamModel.dart';
 import 'package:test_hooks/counter_reactive/counter.dart';
+import 'package:test_hooks/counter_reactive/rxCounter.dart';
 
 class NavItem {
   final IconData icon;
@@ -19,6 +21,11 @@ class NavItem {
 }
 
 class NavManager {
+  // Instace for disposing streams
+  final modelCounter = Count();
+  final modelIncrement = TimerStreamModel();
+
+  // Instance from NavManager
   final GlobalKey<NavigatorState> navigatorKey;
   final BehaviorSubject<int> currentIndex;
   final List<NavItem> items;
@@ -32,12 +39,12 @@ class NavManager {
           NavItem(
               icon: Icons.plus_one,
               title: 'Counter',
-              route: '/Counter',
+              route: '/',
               builder: (_) => Counter()),
           NavItem(
               icon: Icons.add_circle,
               title: 'Timer Increment',
-              route: '/',
+              route: '/Increment',
               builder: (_) => TimerStream()),
           NavItem(
               icon: Icons.remove_circle,
@@ -61,6 +68,17 @@ class NavManager {
   // => this navigate for page who represents this index;
   navigateToIndex(int index) {
     if (currentIndex.hasValue && index == currentIndex.value) return;
+    // disposing streams when changes screen
+    switch (currentIndex.value) {
+      case 0:
+        modelCounter.dispose();
+        print('called modelCounter dispose() has successful');
+        break;
+      case 1:
+        modelIncrement.disposeTimerModel();
+        print('called modelIncrement dispose() has successful');
+        break;
+    }
     navigatorKey.currentState.pushReplacementNamed(items[index].route);
     currentIndex.add(index);
   }

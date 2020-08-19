@@ -8,8 +8,7 @@ part 'counter.g.dart';
 
 @hwidget
 Widget counter() {
-  final modelCounter = Count();
-  useEffect(() => Count().dispode());
+  final modelCounter = useMemoized(() => Count());
   return Container(
     child: Column(
       mainAxisSize: MainAxisSize.max,

@@ -8,7 +8,8 @@ part 'timerStream.g.dart';
 
 @FunctionalWidget(widgetType: FunctionalWidgetType.hook)
 Widget timerStream() {
-  final model = useMemoized(() => TimerStreamModel(speedMultiplier: 50));
+  final modelIncrement =
+      useMemoized(() => TimerStreamModel(speedMultiplier: 50));
   final shortestSide = MediaQuery.of(useContext()).size.shortestSide;
   return Container(
     child: Column(
@@ -26,13 +27,13 @@ Widget timerStream() {
                 color: Color(0xFF363E66),
               ),
             ),
-            ProgressIndicatorSubject(model.seconds, shortestSide * 0.6,
+            ProgressIndicatorSubject(modelIncrement.seconds, shortestSide * 0.6,
                 shortestSide * 0.05, Color(0xFF859DC1)),
-            ProgressIndicatorSubject(model.minutes, shortestSide * 0.7,
+            ProgressIndicatorSubject(modelIncrement.minutes, shortestSide * 0.7,
                 shortestSide * 0.05, Color(0xFF82BDBF)),
-            ProgressIndicatorSubject(model.hours, shortestSide * 0.8,
+            ProgressIndicatorSubject(modelIncrement.hours, shortestSide * 0.8,
                 shortestSide * 0.05, Color(0xFFB8D6E1)),
-            TimerText2(model.duration),
+            TimerText2(modelIncrement.duration),
           ],
         ),
         Row(
@@ -41,15 +42,15 @@ Widget timerStream() {
             RaisedButton(
                 child: Text('Start'),
                 color: Colors.green,
-                onPressed: () => model.start()),
+                onPressed: () => modelIncrement.start()),
             RaisedButton(
                 child: Text('Stop'),
                 color: Colors.redAccent,
-                onPressed: () => model.stop()),
+                onPressed: () => modelIncrement.stop()),
             RaisedButton(
                 child: Text('Reset'),
                 color: Colors.blueAccent,
-                onPressed: () => model.reset()),
+                onPressed: () => modelIncrement.reset()),
           ],
         )
       ],
